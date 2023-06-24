@@ -1,0 +1,47 @@
+.heading1 {
+  color: brown;
+  font-size: large;
+}
+
+.h1 {
+  color: chocolate;
+}
+
+.header {
+  
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+}
+
+.main-header img {
+  height: 50px;
+}
+
+.sub-header {
+  height: 20px;
+  background-color: antiquewhite;
+}
+
+.footer {
+  text-align: center;
+}
+
+.main-body {
+  min-height: 80vh;
+}
+
+.main-body .student {
+  background-color: antiquewhite;
+  margin-bottom: 10px;
+}
+
+.review .up{
+  color: green;
+}
+
+.review .down{
+  color: red;
+}
