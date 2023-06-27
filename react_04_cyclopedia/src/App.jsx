@@ -1,5 +1,5 @@
-import CyclOPediaClassPage from "./Components/Layout/Cycl/CyclOPediaClassPage";
-import CyclOPediaFuncPage from "./Components/Layout/Cycl/CyclOPediaFuncPage";
+import CyclOPediaClassPage from "./Components/Cycl/CyclOPediaClassPage";
+import CyclOPediaFuncPage from "./Components/Cycl/CyclOPediaFuncPage";
 
 const App = () => {
   return (

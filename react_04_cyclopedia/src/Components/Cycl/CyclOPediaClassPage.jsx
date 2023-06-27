@@ -1,5 +1,5 @@
 import React from "react";
-import { getRandomUser } from "../../../Utility/api";
+import { getRandomUser } from "../../Utility/api";
 import Instructor from "./Instructor";
 
 export default class CyclOPediaClassPage extends React.Component {
@@ -17,7 +17,7 @@ export default class CyclOPediaClassPage extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log("Component Did Mount");
+    //console.log("Component Did Mount");
 
     if (JSON.parse(localStorage.getItem("cylcopediaState"))) {
       return;
@@ -38,7 +38,7 @@ export default class CyclOPediaClassPage extends React.Component {
   };
 
   componentDidUpdate = async (prevProps, prevState) => {
-    console.log("Component Did Update");
+    //console.log("Component Did Update");
     localStorage.setItem("cylcopediaState", JSON.stringify(this.state));
   
     //console.log("Old State - " + previousState.studentCount);
@@ -65,7 +65,7 @@ export default class CyclOPediaClassPage extends React.Component {
   };
 
   componentWillUnmount() {
-    console.log("Component Will UnMount");
+    //console.log("Component Will UnMount");
   }
 
   handleAddStudent = () => {
@@ -93,14 +93,14 @@ export default class CyclOPediaClassPage extends React.Component {
   };
 
   render() {
-    console.log("Render Component");
+    //console.log("Render Component");
     return (
       <div>
         <div className="p-3">
           <span className="h4 text-success">Instructor &nbsp;</span>
           <i
             className={`bi ${
-              this.props.hideInstructor ? "bi-toggle-off" : "bi-toggle-on"
+              this.state.hideInstructor ? "bi-toggle-off" : "bi-toggle-on"
             } btn btn-sm btn-success`}
             onClick={this.handleToggleInstructor}
           ></i>
