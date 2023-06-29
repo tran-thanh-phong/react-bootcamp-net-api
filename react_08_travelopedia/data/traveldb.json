@@ -1,0 +1,40 @@
+{
+  "destination": [
+    {
+      "id": 1,
+      "city": "New York",
+      "country": "USA",
+      "daysNeeded": 3
+    },
+    {
+      "id": 2,
+      "city": "Chicago",
+      "country": "USA",
+      "daysNeeded": 5
+    },
+    {
+      "id": 3,
+      "city": "Miami",
+      "country": "USA",
+      "daysNeeded": 8
+    },
+    {
+      "id": 60.533168809597406,
+      "city": "Ho Chi Minh",
+      "country": "VN",
+      "daysNeeded": 7
+    },
+    {
+      "id": 11.76549444470465,
+      "city": "Hanoi",
+      "country": "VN",
+      "daysNeeded": 3
+    },
+    {
+      "id": 73.40605126414385,
+      "city": "Hue 2",
+      "country": "VN",
+      "daysNeeded": 5
+    }
+  ]
+}
