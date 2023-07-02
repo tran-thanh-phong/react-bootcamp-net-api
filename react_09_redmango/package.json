@@ -1,0 +1,44 @@
+{
+  "name": "react_09_redmango",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@stripe/react-stripe-js": "^1.16.1",
+    "@stripe/stripe-js": "^1.46.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.10",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.5.0",
+    "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
+    "typescript": "^4.9.4",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "vite": "^4.3.9"
+  }
+}
