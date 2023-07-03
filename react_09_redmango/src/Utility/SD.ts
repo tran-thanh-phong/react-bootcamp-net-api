@@ -27,6 +27,6 @@ export enum SD_SortTypes {
 }
 
 export const configuration = {
-  baseUrl: "https://redmangoapi91.azurewebsites.net/api/"
+  baseUrl: "https://redmangoapi.azurewebsites.net/api/"
   //baseUrl: "https://localhost:7181/api/"
 }

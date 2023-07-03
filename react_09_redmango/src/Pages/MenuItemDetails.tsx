@@ -1,65 +1,63 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { menuItemModel } from "../Interfaces";
-// import { useGetMenuItemByIdQuery } from "../Apis/menuItemApi";
-// import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
-// import { useUpdateShoppingCartMutation } from "../Apis/shoppingCartApi";
+import { useGetMenuItemByIdQuery } from "../Apis/menuItemApi";
+import { useNavigate } from "react-router-dom";
+import { useUpdateShoppingCartMutation } from "../Apis/shoppingCartApi";
 // import { MainLoader, MiniLoader } from "../Components/Page/Common";
-// import { apiResponse, userModel } from "../Interfaces";
+import { apiResponse, userModel } from "../Interfaces";
+import { MainLoader, MiniLoader } from "../Components/Page/Common";
 // import { toastNotify } from "../Helper";
 // import { RootState } from "../Storage/Redux/store";
 // import { useSelector } from "react-redux";
 
 function MenuItemDetails() {
   const { menuItemId } = useParams();
-  const [menuItem, setMenuItem] = useState<menuItemModel>();
-  //   const { data, isLoading } = useGetMenuItemByIdQuery(menuItemId);
-  //   const navigate = useNavigate();
-  //   const [quantity, setQuantity] = useState(1);
-  //   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  const { data, isLoading } = useGetMenuItemByIdQuery({ id: menuItemId });
+  const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
+  const [updateShoppingCart] = useUpdateShoppingCartMutation();
+  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   //   const [updateShoppingCart] = useUpdateShoppingCartMutation();
   //   const userData: userModel = useSelector(
   //     (state: RootState) => state.userAuthStore
   //   );
 
-  //   const handleQuantity = (counter: number) => {
-  //     let newQuantity = quantity + counter;
-  //     if (newQuantity == 0) {
-  //       newQuantity = 1;
-  //     }
-  //     setQuantity(newQuantity);
-  //     return;
-  //   };
+  const handleQuantity = (counter: number) => {
+    let newQuantity = quantity + counter;
+    if (newQuantity == 0) {
+      newQuantity = 1;
+    }
+    setQuantity(newQuantity);
+    return;
+  };
 
-  //   const handleAddToCart = async (menuItemId: number) => {
-  //     if (!userData.id) {
-  //       navigate("/login");
-  //       return;
-  //     }
-  //     setIsAddingToCart(true);
-  //     const response: apiResponse = await updateShoppingCart({
-  //       menuItemId: menuItemId,
-  //       updateQuantityBy: quantity,
-  //       userId: userData.id,
-  //     });
+  const handleAddToCart = async (menuItemId: number) => {
+    //     if (!userData.id) {
+    //       navigate("/login");
+    //       return;
+    //     }
+    setIsAddingToCart(true);
+    //     const response: apiResponse = await updateShoppingCart({
+    //       menuItemId: menuItemId,
+    //       updateQuantityBy: quantity,
+    //       userId: userData.id,
+    //     });
 
-  //     if (response.data && response.data.isSuccess) {
-  //       toastNotify("Item added to cart successfully!");
-  //     }
-  //     setIsAddingToCart(false);
-  //   };
+    const response = await updateShoppingCart({
+      menuItemId: menuItemId,
+      updateQuantityBy: quantity,
+      userId: "b7ae37bf-09b1-4b47-9ce1-c96031d2920",
+    });
 
-  useEffect(() => {
-    const url =
-      "https://redmangoapi91.azurewebsites.net/api/MenuItem/" + menuItemId;
+    //     if (response.data && response.data.isSuccess) {
+    //       toastNotify("Item added to cart successfully!");
+    //     }
+    setIsAddingToCart(false);
+  };
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setMenuItem(data.result);
-      });
-  }, []);
+  if (isLoading) {
+    return <MainLoader />;
+  }
 
   return (
     <div className="container pt-4 pt-md-5">
@@ -67,33 +65,48 @@ function MenuItemDetails() {
         <div className="col col-7">
           <div className="row">
             <div className="col col-12">
-              <p className="h2 text-success fs-1">{menuItem?.name}</p>
-              <p className="badge bg-dark">{menuItem?.category}</p>
-              <p className="">{menuItem?.description}</p>
+              <p className="h2 text-success fs-1">{data.result.name}</p>
+              <p className="badge bg-dark">{data.result.category}</p>
+              <p className="">{data.result.description}</p>
             </div>
           </div>
           <div className="row p-2">
             <div className="col col-12 d-flex align-items-center">
-              <p className="h3 text-success">${menuItem?.price}</p>
-              <div className="ms-3 fs-1">
-                <i className="bi bi-dash btn fs-2" style={{position: "relative", left: "0px", top: "50px"}}></i>
-                <i className="bi bi-plus btn fs-2" style={{position: "relative", right: "0px", top: "50px"}}></i>
-                <input
-                  type="number"
-                  className="rounded-pill text-center fs-1 w-100"
-                  defaultValue={1}
-                />
-              </div>
+              <span className="h3 text-success">${data.result.price}</span>
+              <span
+                className="ms-3 px-3 py-1"
+                style={{ border: "1px solid #333", borderRadius: "30px" }}
+              >
+                <i
+                  className="bi bi-dash fs-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleQuantity(-1)}
+                ></i>
+                <span className="h3 mt-3 px-3 fs-1">{quantity}</span>
+                <i
+                  className="bi bi-plus fs-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleQuantity(1)}
+                ></i>
+              </span>
             </div>
           </div>
           <div className="row p-2">
             <div className="col col-6">
-              <button className="btn btn-sm btn-success form-control">
-                Add to Cart
+              <button
+                className="btn btn-sm btn-success form-control"
+                disabled={isAddingToCart}
+                onClick={() => handleAddToCart(data.result.id)}
+              >
+                {isAddingToCart ? <MiniLoader/> : "Add to Cart"}
               </button>
             </div>
             <div className="col col-6">
-              <button className="btn btn-sm btn-secondary form-control">
+              <button
+                className="btn btn-sm btn-secondary form-control"
+                disabled={isAddingToCart}
+                onClick={() => navigate(-1)}
+              >
                 Back to Home
               </button>
             </div>
@@ -101,7 +114,7 @@ function MenuItemDetails() {
         </div>
         <div className="col col-5">
           <img
-            src={menuItem?.image}
+            src={data.result.image}
             style={{ width: "100%", borderRadius: "50%" }}
           />
         </div>

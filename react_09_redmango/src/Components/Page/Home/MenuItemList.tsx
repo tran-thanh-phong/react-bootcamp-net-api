@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
-
+import { useGetMenuItemsQuery } from '../../../Apis/menuItemApi';
 import { menuItemModel } from "../../../Interfaces";
 import MenuItemCard from "./MenuItemCard";
+import { useDispatch } from 'react-redux';
+import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
+import { MainLoader } from "../Common";
 
 function MenuItemList() {
-  const [menuItems, setMenuItems] = useState<Array<menuItemModel>>([]);
+  const { data, isLoading } = useGetMenuItemsQuery(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("https://redmangoapi91.azurewebsites.net/api/MenuItem")
-      .then((response) => response.json())
-      .then((data) => {
-        setMenuItems(data.result);
-      });
-  }, []);
+    if (!isLoading) {
+      dispatch(setMenuItem(data.result));
+    }
+
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <MainLoader/>;
+  }
 
   return (
     <div className="container row text-warning">
-      {menuItems.length > 0 &&
-        menuItems.map((item, index) => (
+      {data?.result?.length > 0 &&
+        data.result.map((item, index) => (
           <MenuItemCard menuItem={item} key={index} />
         ))}
     </div>
