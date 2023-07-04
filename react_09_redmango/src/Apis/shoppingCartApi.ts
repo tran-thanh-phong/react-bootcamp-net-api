@@ -10,7 +10,7 @@ const shoppingCartApi = createApi({
     //   token && headers.append("authorization", "bearer " + token);
     // },
   }),
-  //tagTypes: ["ShoppingCarts"],
+  tagTypes: ["ShoppingCarts"],
   endpoints: (builder) => ({
     getShoppingCart: builder.query({
       query: (userId) => ({
@@ -19,7 +19,7 @@ const shoppingCartApi = createApi({
           userId: userId,
         },
       }),
-      //providesTags: ["ShoppingCarts"],
+      providesTags: ["ShoppingCarts"],
     }),
     updateShoppingCart: builder.mutation({
       query: ({ menuItemId, updateQuantityBy, userId }) => ({
@@ -31,7 +31,7 @@ const shoppingCartApi = createApi({
           userId,
         },
       }),
-      //invalidatesTags: ["ShoppingCarts"],
+      invalidatesTags: ["ShoppingCarts"],
     }),
   }),
 });
