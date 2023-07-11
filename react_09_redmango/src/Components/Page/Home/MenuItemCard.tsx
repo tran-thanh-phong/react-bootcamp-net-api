@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { menuItemModel } from "../../../Interfaces";
+import { apiResponse, menuItemModel } from "../../../Interfaces";
 import { Link } from "react-router-dom";
 import { useUpdateShoppingCartMutation } from "../../../Apis/shoppingCartApi";
 import { MiniLoader } from "../Common/index";
+import { toastNotify } from "../../../Helper";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Storage/Redux/store';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   menuItem: menuItemModel;
@@ -11,12 +15,15 @@ interface Props {
 function MenuItemCard(props: Props) {
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  const userData = useSelector((state: RootState) => state.userAuthStore);
+  const navigate = useNavigate();
 
   const handleAddToCart = async (menuItemId: number) => {
-    //     if (!userData.id) {
-    //       navigate("/login");
-    //       return;
-    //     }
+    if (!userData.id) {
+      navigate("/login");
+      return;
+    }
+
     setIsAddingToCart(true);
     //     const response: apiResponse = await updateShoppingCart({
     //       menuItemId: menuItemId,
@@ -24,15 +31,15 @@ function MenuItemCard(props: Props) {
     //       userId: userData.id,
     //     });
 
-    const response = await updateShoppingCart({
+    const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: 1,
-      userId: "b7ae37bf-09b1-4b47-9ce1-c96031d2920",
+      userId: userData.id,
     });
 
-    //     if (response.data && response.data.isSuccess) {
-    //       toastNotify("Item added to cart successfully!");
-    //     }
+    if (response.data && response.data.isSuccess) {
+      toastNotify("Item added to cart successfully!");
+    }
     setIsAddingToCart(false);
   };
 
@@ -53,8 +60,8 @@ function MenuItemCard(props: Props) {
           )}
 
           {isAddingToCart ? (
-            <div style={{position: "absolute", top: "15px", right: "15px"}}>
-              <MiniLoader/>
+            <div style={{ position: "absolute", top: "15px", right: "15px" }}>
+              <MiniLoader />
             </div>
           ) : (
             <i

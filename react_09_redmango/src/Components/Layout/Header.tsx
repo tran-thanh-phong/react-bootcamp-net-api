@@ -1,12 +1,29 @@
 import React from "react";
 import mango from "../../assets/images/mango.png";
 import { NavLink, Link } from "react-router-dom";
-import { RootState } from '../../Storage/Redux/store';
-import { useSelector } from 'react-redux';
-import { cartItemModel } from '../../Interfaces';
+import { RootState } from "../../Storage/Redux/store";
+import { useSelector } from "react-redux";
+import { cartItemModel, userModel } from "../../Interfaces";
+import { setLoggedInUser, emptyUserState } from "../../Storage/Redux/userAuthSlice";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function Header() {
-  const cartItemsFromStore: cartItemModel[] = useSelector((state: RootState) => state.shoppingCartStore.cartItems ?? []);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const cartItemsFromStore: cartItemModel[] = useSelector(
+    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  );
+
+  const loginUser: userModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(setLoggedInUser(emptyUserState));
+    navigate('/');
+  }
 
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
@@ -32,6 +49,7 @@ function Header() {
                 Home
               </NavLink>
             </li>
+
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -64,22 +82,65 @@ function Header() {
               </ul>
             </li>
             <li className="nav-item">
-              <NavLink className={"nav-link"} aria-current="page" to="/shoppingCart">
-                <i className="bi bi-cart"></i> ({cartItemsFromStore.length})
+              <NavLink
+                className={"nav-link d-flex"}
+                aria-current="page"
+                to="/shoppingCart"
+              >
+                <i className="bi bi-cart"></i> ({loginUser.id && cartItemsFromStore.length})
               </NavLink>
             </li>
+            <div className="d-flex ms-auto">
+              {loginUser.id && (
+                <>
+                  <li className="nav-item">
+                    <button
+                      className="nav-link active"
+                      style={{
+                        cursor: "pointer",
+                        background: "transparent",
+                        border: 0
+                      }}
+                    >
+                      Welcome, {loginUser.fullName}
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button
+                      className={
+                        "btn btn-success btn-outlined rounded-pill text-white mx-2"
+                      }
+                      style={{ height: "40px", width: "100px", border: "none" }}
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              )}
+
+              {!loginUser.id && (
+                <>
+                  <li className="nav-item">
+                    <NavLink className={"nav-link"} to="/register">
+                      Register
+                    </NavLink>
+                  </li>
+                  <li className="nav-item text-white">
+                    <NavLink
+                      className={
+                        "btn btn-success btn-outlined rounded-pill text-white mx-2"
+                      }
+                      style={{ height: "40px", width: "100px", border: "none" }}
+                      to="/login"
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              )}
+            </div>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
         </div>
       </div>
     </nav>

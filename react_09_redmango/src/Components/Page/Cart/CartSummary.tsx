@@ -128,7 +128,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../Storage/Redux/store";
-import { cartItemModel } from "../../../Interfaces";
+import { cartItemModel, userModel } from "../../../Interfaces";
 import {
   updateQuantity,
   removeFromCart,
@@ -137,6 +137,7 @@ import {
 import { useUpdateShoppingCartMutation } from "../../../Apis/shoppingCartApi";
 
 function CartSummary() {
+  const userData: userModel = useSelector((state: RootState) => state.userAuthStore);
   const cartItems: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
@@ -150,7 +151,7 @@ function CartSummary() {
     updateShoppingCart({
       menuItemId: cartItem.menuItem?.id,
       updateQuantityBy: updateQuantityBy,
-      userId: "b7ae37bf-09b1-4b47-9ce1-c96031d2920",
+      userId: userData.id,
     });
 
     if (

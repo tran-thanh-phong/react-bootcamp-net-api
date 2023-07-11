@@ -6,9 +6,9 @@ import { useUpdateShoppingCartMutation } from "../Apis/shoppingCartApi";
 // import { MainLoader, MiniLoader } from "../Components/Page/Common";
 import { apiResponse, userModel } from "../Interfaces";
 import { MainLoader, MiniLoader } from "../Components/Page/Common";
-// import { toastNotify } from "../Helper";
-// import { RootState } from "../Storage/Redux/store";
-// import { useSelector } from "react-redux";
+import { toastNotify } from "../Helper";
+import { RootState } from "../Storage/Redux/store";
+import { useSelector } from "react-redux";
 
 function MenuItemDetails() {
   const { menuItemId } = useParams();
@@ -18,9 +18,9 @@ function MenuItemDetails() {
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   //   const [updateShoppingCart] = useUpdateShoppingCartMutation();
-  //   const userData: userModel = useSelector(
-  //     (state: RootState) => state.userAuthStore
-  //   );
+  const userData: userModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
 
   const handleQuantity = (counter: number) => {
     let newQuantity = quantity + counter;
@@ -32,10 +32,10 @@ function MenuItemDetails() {
   };
 
   const handleAddToCart = async (menuItemId: number) => {
-    //     if (!userData.id) {
-    //       navigate("/login");
-    //       return;
-    //     }
+    if (!userData.id) {
+      navigate("/login");
+      return;
+    }
     setIsAddingToCart(true);
     //     const response: apiResponse = await updateShoppingCart({
     //       menuItemId: menuItemId,
@@ -43,15 +43,15 @@ function MenuItemDetails() {
     //       userId: userData.id,
     //     });
 
-    const response = await updateShoppingCart({
+    const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: quantity,
-      userId: "b7ae37bf-09b1-4b47-9ce1-c96031d2920",
+      userId: userData.id,
     });
 
-    //     if (response.data && response.data.isSuccess) {
-    //       toastNotify("Item added to cart successfully!");
-    //     }
+    if (response.data && response.data.isSuccess) {
+      toastNotify("Item added to cart successfully!");
+    }
     setIsAddingToCart(false);
   };
 
@@ -98,7 +98,7 @@ function MenuItemDetails() {
                 disabled={isAddingToCart}
                 onClick={() => handleAddToCart(data.result.id)}
               >
-                {isAddingToCart ? <MiniLoader/> : "Add to Cart"}
+                {isAddingToCart ? <MiniLoader /> : "Add to Cart"}
               </button>
             </div>
             <div className="col col-6">
