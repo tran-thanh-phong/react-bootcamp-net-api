@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './App.css';
 import { Footer, Header } from '../Components/Layout';
 import { Routes, Route } from 'react-router-dom';
-import { Home, NotFound, MenuItemDetails, Login, Register } from '../Pages';
+import { Home, NotFound, MenuItemDetails, Login, Register, AccessDenied, Payment } from '../Pages';
 import ShoppingCart from '../Pages/ShoppingCart';
 import { useGetShoppingCartQuery } from '../Apis/shoppingCartApi'
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice'
@@ -43,6 +43,8 @@ function App() {
           <Route path='/shoppingCart' element={<ShoppingCart/>} />
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/accessDenied" element={<AccessDenied/>}/>
+          <Route path="/payment" element={<Payment/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </div>

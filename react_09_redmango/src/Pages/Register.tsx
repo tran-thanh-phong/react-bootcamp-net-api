@@ -140,11 +140,13 @@ function Register() {
       name: userInput.name,
     });
 
-    if (response.data) {
+    if (response.data && response.data.isSuccess) {
       console.log(response.data);
 
-      const { token } = response.data.result;
-      localStorage.setItem("token", token);
+      if (response.data.result !== null) {
+        const { token } = response.data.result;
+        localStorage.setItem("token", token);
+      }
 
       toastNotify("Registeration successful! Please login to continue.");
 

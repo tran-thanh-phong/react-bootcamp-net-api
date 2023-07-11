@@ -25,11 +25,6 @@ function MenuItemCard(props: Props) {
     }
 
     setIsAddingToCart(true);
-    //     const response: apiResponse = await updateShoppingCart({
-    //       menuItemId: menuItemId,
-    //       updateQuantityBy: quantity,
-    //       userId: userData.id,
-    //     });
 
     const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
@@ -40,6 +35,7 @@ function MenuItemCard(props: Props) {
     if (response.data && response.data.isSuccess) {
       toastNotify("Item added to cart successfully!");
     }
+    
     setIsAddingToCart(false);
   };
 

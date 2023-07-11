@@ -7,9 +7,11 @@ import Register from './Register';
 import AuthenticationTest from './AuthenticationTest';
 import AuthenticationTestAdmin from './AuthenticationTestAdmin';
 import AccessDenied from './AccessDenied';
+import Payment from './Payment'
 
 export { Home, NotFound, MenuItemDetails, ShoppingCart, Login, Register,
     AuthenticationTest,
     AuthenticationTestAdmin,
-    AccessDenied
+    AccessDenied,
+    Payment
 };
