@@ -1,46 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchItem } from "../../../Storage/Redux/menuItemSlice";
 import "./banner.css";
-
 function Banner() {
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchItem(e.target.value));
+    setValue(e.target.value);
+  };
+
   return (
-    <div>
-      <div className="custom-banner">
-        <div
-          className="m-auto d-flex align-items-center"
-          style={{
-            width: "400px",
-            height: "50vh",
-          }}
-        >
-          <div
-            className="d-flex align-items-center"
+    <div className="custom-banner">
+      <div
+        className="m-auto d-flex align-items-center"
+        style={{
+          width: "400px",
+          height: "50vh",
+        }}
+      >
+        <div className="d-flex align-items-center" style={{ width: "100%" }}>
+          <input
+            type={"text"}
+            className="form-control rounded-pill"
             style={{
               width: "100%",
+              padding: "20px 20px",
             }}
-          >
-            <input
-              className="form-control rounded-pill"
-              style={{ width: "100%", padding: "20px 20px" }}
-              type="text"
-              placeholder="Search for Food Items!"
-            ></input>
-
-            <span style={{ position: "relative", left: "-43px" }}>
-              <i className="bi bi-search"></i>
-            </span>
-          </div>
+            value={value}
+            onChange={handleChange}
+            placeholder="Search for Food Items!"
+          />
+          <span style={{ position: "relative", left: "-43px" }}>
+            <i className="bi bi-search"></i>
+          </span>
         </div>
       </div>
-      <a
-        href="https://dotnetmastery.com/Home/Details?courseId=29"
-        target="_blank"
-      >
-        <div className="btn btn-danger form-control text-center text-white h4">
-          This is a demo application based on{" "}
-          <span className="text-warning"> Udemy Course by DotNetMastery!</span>{" "}
-          To visit the course click on me!
-        </div>
-      </a>
     </div>
   );
 }

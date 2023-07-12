@@ -24,11 +24,7 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
     if (!stripe || !elements) {
       return;
     }
-
     setIsProcessing(true);
-
-    console.log("stripe.confirmPayment");
-
     const result = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
@@ -37,8 +33,6 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
       },
       redirect: "if_required",
     });
-
-    console.log("stripe.confirmPayment", result);
 
     if (result.error) {
       // Show error to your customer (for example, payment details incomplete)
@@ -73,8 +67,6 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
             ? SD_Status.CONFIRMED
             : SD_Status.PENDING,
       });
-
-      console.log("createOrder", response);
 
       if (response) {
         if (response.data?.result.status === SD_Status.CONFIRMED) {

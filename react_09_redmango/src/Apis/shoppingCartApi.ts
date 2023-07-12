@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { configuration } from "../Utility/SD";
+import { configuration } from '../Utility/SD';
 
 const shoppingCartApi = createApi({
   reducerPath: "shoppingCartApi",
@@ -7,7 +7,7 @@ const shoppingCartApi = createApi({
     baseUrl: configuration.baseUrl,
     prepareHeaders: (headers: Headers, api) => {
       const token = localStorage.getItem("token");
-      token && headers.append("authorization", "bearer " + token);
+      token && headers.append("Authorization", "Bearer " + token);
     },
   }),
   tagTypes: ["ShoppingCarts"],
