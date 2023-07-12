@@ -146,8 +146,6 @@ function CartPickUpDetails() {
     setUserInput(tempData);
   };
 
-  console.log(initialUserData, userInput);
-
   let grantTotal = 0;
   let noOfItems = 0;
 
@@ -157,7 +155,7 @@ function CartPickUpDetails() {
     return null;
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     console.log(userInput);
@@ -180,7 +178,7 @@ function CartPickUpDetails() {
     <div className="border rounded">
       <h2 className="text-center text-success mt-3">Pickup Details</h2>
       <hr />
-      <form className="col-10 mx-auto" onClick={handleSubmit}>
+      <form className="col-10 mx-auto" onSubmit={handleSubmit}>
         <div className="form-group m-3">
           Pickup Name
           <input

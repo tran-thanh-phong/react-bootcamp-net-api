@@ -27,6 +27,6 @@ export enum SD_SortTypes {
 }
 
 export const configuration = {
-  baseUrl: "https://redmangoapi91.azurewebsites.net/api/"
-  //baseUrl: "https://localhost:7181/api/"
+  baseUrl: "https://redmangoapi91.azurewebsites.net/api/",
+  paymentCallbackUrl: "https://6c81-2405-4802-c0b2-98e0-1035-e8ba-56fa-750b.ngrok-free.app"
 }
