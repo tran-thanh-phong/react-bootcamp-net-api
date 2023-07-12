@@ -5,10 +5,10 @@ const shoppingCartApi = createApi({
   reducerPath: "shoppingCartApi",
   baseQuery: fetchBaseQuery({
     baseUrl: configuration.baseUrl,
-    // prepareHeaders: (headers: Headers, api) => {
-    //   const token = localStorage.getItem("token");
-    //   token && headers.append("authorization", "bearer " + token);
-    // },
+    prepareHeaders: (headers: Headers, api) => {
+      const token = localStorage.getItem("token");
+      token && headers.append("authorization", "bearer " + token);
+    },
   }),
   tagTypes: ["ShoppingCarts"],
   endpoints: (builder) => ({
