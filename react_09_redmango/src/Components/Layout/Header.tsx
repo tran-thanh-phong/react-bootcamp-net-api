@@ -8,7 +8,8 @@ import {
   setLoggedInUser,
 } from "../../Storage/Redux/userAuthSlice";
 import { SD_Roles } from "../../Utility/SD";
-import mango from "../../assets/images/mango.png";
+
+const mango = require("../../assets/images/mango.png");
 
 function Header() {
   const dispatch = useDispatch();
