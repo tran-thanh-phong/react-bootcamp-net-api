@@ -3,10 +3,16 @@
 
 name: Build and deploy Node.js app to Azure Web App - RedMango91
 
+defaults:
+  run:
+    working-directory: react_09_redmango
+    
 on:
   push:
     branches:
       - main
+    paths:
+      - react_09_redmango/**
   workflow_dispatch:
 
 jobs:
