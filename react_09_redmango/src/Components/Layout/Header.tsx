@@ -9,7 +9,8 @@ import {
 } from "../../Storage/Redux/userAuthSlice";
 import { SD_Roles } from "../../Utility/SD";
 
-import mango from "../../assets/images/mango.png";
+//import mango from "../../assets/images/mango.png";
+const mango = "./mango.png";
 
 function Header() {
   const dispatch = useDispatch();
